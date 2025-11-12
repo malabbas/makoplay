@@ -262,6 +262,130 @@
       box-shadow: 4px 4px 0 #000;
     }
 
+    /* Campaign Posts Section */
+    .campaign-section {
+      position: relative;
+      z-index: 2;
+      background: #f5f5f5;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px);
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
+      padding: 4rem 2rem;
+    }
+
+    .campaign-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .campaign-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    .campaign-card {
+      border: 2px solid #000;
+      background: #fff;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.15);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .campaign-preview {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 2px solid #000;
+      background-image:
+        repeating-linear-gradient(0deg, #fff, #fff 6px, #000 6px, #000 7px),
+        repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(0, 0, 0, 0.08) 6px, rgba(0, 0, 0, 0.08) 7px);
+      background-blend-mode: multiply;
+    }
+
+    .campaign-card h3 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .campaign-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .campaign-caption {
+      margin-top: auto;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.4rem 0.6rem;
+      border: 2px solid #000;
+      background: #000;
+      color: #fff;
+      align-self: flex-start;
+    }
+
+    .campaign-insights {
+      border: 2px solid #000;
+      background: #fff;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.15);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .campaign-insights h3 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .campaign-insights p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .campaign-insights ul {
+      list-style: square inside;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .campaign-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .metric-chip {
+      border: 2px solid #000;
+      background: #f5f5f5;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
+    }
+
     /* Modal */
     .modal-overlay {
       position: fixed;
@@ -761,6 +885,22 @@
         width: 100%;
       }
 
+      .campaign-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .campaign-section {
+        padding: 3rem 1.5rem;
+      }
+
+      .campaign-insights {
+        padding: 2rem;
+      }
+
+      .campaign-metrics {
+        justify-content: center;
+      }
+
       footer {
         flex-direction: column;
         gap: 1.5rem;
@@ -805,7 +945,45 @@
      </div>
     </div>
    </div>
-   <div class="cta-buttons"><button class="btn btn-secondary" id="secondary-btn">Join Early Access</button>
+   <div class="cta-buttons">
+    <button class="btn btn-secondary" id="secondary-btn">Join Early Access</button>
+   </div>
+  </section>
+  <section class="campaign-section" aria-labelledby="campaign-section-title">
+   <div class="campaign-inner">
+    <h2 class="campaign-title" id="campaign-section-title">Example Campaign Posts</h2>
+    <div class="campaign-grid">
+     <article class="campaign-card">
+      <div class="campaign-preview" aria-hidden="true"></div>
+      <div>
+       <h3>Win this game.</h3>
+       <p>Get 100 Large Pizzas. No questions asked.</p>
+      </div>
+      <span class="campaign-caption">Concept demo. Not affiliated with any brand.</span>
+     </article>
+     <article class="campaign-card">
+      <div class="campaign-preview" aria-hidden="true"></div>
+      <div>
+       <h3>Solve this puzzle.</h3>
+       <p>Win an iPhone 17.</p>
+      </div>
+      <span class="campaign-caption">Concept demo. Not affiliated with any brand.</span>
+     </article>
+    </div>
+    <section class="campaign-insights" aria-labelledby="campaign-insights-title">
+     <h3 id="campaign-insights-title">Why This Works</h3>
+     <p>We gauge interest intensity from retries and play patterns. If someone plays 100 times to win 100 pizzas, they&rsquo;re a pizza super-fan. If someone keeps trying to win an iPhone, they have high purchase intent for that device. We pass this signal with every lead.</p>
+     <ul>
+      <li>Click-baity campaigns most people can&rsquo;t ignore</li>
+      <li>Leads with high-intent data (retries, completion, time-on-game)</li>
+      <li>High engagement &amp; brand recognition through play</li>
+     </ul>
+     <div class="campaign-metrics" role="list" aria-label="Campaign metrics">
+      <div class="metric-chip" role="listitem">Avg Retries: 3.8</div>
+      <div class="metric-chip" role="listitem">Completion Rate: 42%</div>
+      <div class="metric-chip" role="listitem">Lead Score: High/Med/Low</div>
+     </div>
+    </section>
    </div>
   </section>
   <section class="about" id="about">

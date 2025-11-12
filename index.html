@@ -314,9 +314,10 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       border: 2px solid #000;
+      background-color: #dedede;
       background-image:
-        repeating-linear-gradient(0deg, #fff, #fff 6px, #000 6px, #000 7px),
-        repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(0, 0, 0, 0.08) 6px, rgba(0, 0, 0, 0.08) 7px);
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 6px);
       background-blend-mode: multiply;
       max-height: 320px;
       position: relative;
@@ -324,6 +325,39 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .pixel-art {
+      width: clamp(200px, 80%, 320px);
+      aspect-ratio: 1 / 1;
+      border: 2px solid #000;
+      background: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .pixel-art svg {
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      shape-rendering: crispEdges;
+    }
+
+    @keyframes bob {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-2px);
+      }
+    }
+
+    .pixel-bob {
+      animation: bob 2s steps(2) infinite;
     }
 
     .brand-badge {
@@ -1059,9 +1093,22 @@
     <div class="campaign-grid">
      <article class="campaign-card">
       <div class="campaign-preview">
-       <span class="brand-badge" role="img" aria-label="Domino&rsquo;s logo">
-        <img src="https://ctovmhwxjuehichrydrl.supabase.co/storage/v1/object/public/Imagaes/Dominos_pizza_logo.svg.png" alt="" aria-hidden="true">
-       </span>
+       <div class="pixel-art pixel-bob" role="img" aria-label="Pixel pizza prize">
+        <svg viewBox="0 0 16 16" width="100%" height="100%" style="image-rendering: pixelated; shape-rendering: crispEdges">
+         <rect width="16" height="16" fill="#f5f5f5" />
+         <!-- crust -->
+         <rect x="1" y="4" width="11" height="2" fill="#B0702A" />
+         <rect x="2" y="6" width="10" height="1" fill="#B0702A" />
+         <!-- cheese -->
+         <rect x="3" y="7" width="9" height="6" fill="#F6D04D" />
+         <rect x="2" y="8" width="1" height="4" fill="#F6D04D" />
+         <!-- pepperoni -->
+         <rect x="5" y="8" width="2" height="2" fill="#D33B31" />
+         <rect x="9" y="10" width="2" height="2" fill="#D33B31" />
+         <!-- outline -->
+         <rect x="0" y="0" width="16" height="16" fill="none" stroke="#111" stroke-width="1" />
+        </svg>
+       </div>
       </div>
       <div>
        <h3>WIN THIS GAME.</h3>
@@ -1071,19 +1118,23 @@
      </article>
      <article class="campaign-card">
       <div class="campaign-preview">
-       <span class="brand-badge" role="img" aria-label="Apple logo">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-         <rect width="24" height="24" fill="#fff"></rect>
-         <rect x="8" y="4" width="8" height="2" fill="#000"></rect>
-         <rect x="7" y="6" width="10" height="2" fill="#000"></rect>
-         <rect x="6" y="8" width="12" height="2" fill="#000"></rect>
-         <rect x="6" y="10" width="12" height="2" fill="#000"></rect>
-         <rect x="7" y="12" width="10" height="2" fill="#000"></rect>
-         <rect x="8" y="14" width="8" height="2" fill="#000"></rect>
-         <rect x="9" y="16" width="6" height="2" fill="#000"></rect>
-         <rect x="10" y="18" width="4" height="2" fill="#000"></rect>
+       <div class="pixel-art pixel-bob" role="img" aria-label="Pixel trophy prize">
+        <svg viewBox="0 0 16 16" width="100%" height="100%" style="image-rendering: pixelated; shape-rendering: crispEdges">
+         <rect width="16" height="16" fill="#f5f5f5" />
+         <!-- cup -->
+         <rect x="4" y="3" width="8" height="6" fill="#F5C242" />
+         <rect x="3" y="4" width="2" height="3" fill="#F5C242" />
+         <rect x="11" y="4" width="2" height="3" fill="#F5C242" />
+         <!-- stem -->
+         <rect x="7" y="9" width="2" height="2" fill="#E0A61E" />
+         <!-- base -->
+         <rect x="5" y="11" width="6" height="2" fill="#8C5A2B" />
+         <!-- sparkle -->
+         <rect x="10" y="2" width="1" height="1" fill="#FFFFFF" />
+         <!-- outline -->
+         <rect x="0" y="0" width="16" height="16" fill="none" stroke="#111" stroke-width="1" />
         </svg>
-       </span>
+       </div>
       </div>
       <div>
        <h3>SOLVE THIS PUZZLE.</h3>

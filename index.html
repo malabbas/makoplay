@@ -262,6 +262,137 @@
       box-shadow: 4px 4px 0 #000;
     }
 
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 1.5rem;
+      z-index: 300;
+    }
+
+    .modal-overlay.is-visible {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #fff;
+      border: 2px solid #000;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+      max-width: 480px;
+      width: 100%;
+      padding: 2rem;
+      font-family: 'Courier New', monospace;
+      color: #000;
+    }
+
+    .modal-title {
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .modal-field label {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid #000;
+      background: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      color: #000;
+    }
+
+    .modal-input:focus {
+      outline: 3px solid #000;
+      outline-offset: 2px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .modal-submit {
+      background: #000;
+      color: #fff;
+      border: 3px solid #000;
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+    }
+
+    .modal-submit:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .modal-close-btn {
+      background: #fff;
+      color: #000;
+      border: 3px solid #000;
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .modal-success {
+      font-size: 0.95rem;
+      color: #0f380f;
+      background: rgba(15, 56, 15, 0.1);
+      border: 2px solid #0f380f;
+      padding: 0.75rem 1rem;
+      display: none;
+    }
+
+    .modal-success.is-visible {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .modal-card {
+        padding: 1.5rem;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .modal-actions button {
+        width: 100%;
+      }
+    }
+
     /* About Section */
     .about {
       padding: 4rem 2rem;
@@ -674,7 +805,7 @@
      </div>
     </div>
    </div>
-   <div class="cta-buttons"><button class="btn btn-primary" id="primary-btn">Start Game</button> <button class="btn btn-secondary" id="secondary-btn">Join Early Access</button>
+   <div class="cta-buttons"><button class="btn btn-secondary" id="secondary-btn">Join Early Access</button>
    </div>
   </section>
   <section class="about" id="about">
@@ -755,6 +886,34 @@
     </div>
    </div>
   </section>
+  <div class="modal-overlay" id="early-access-modal" aria-hidden="true">
+   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="early-access-title">
+    <h2 class="modal-title" id="early-access-title">Join Early Access</h2>
+    <form class="modal-form" id="early-access-form">
+     <div class="modal-field">
+      <label for="ea-first-name">First Name</label>
+      <input class="modal-input" id="ea-first-name" name="firstName" type="text" required autocomplete="given-name">
+     </div>
+     <div class="modal-field">
+      <label for="ea-last-name">Last Name</label>
+      <input class="modal-input" id="ea-last-name" name="lastName" type="text" required autocomplete="family-name">
+     </div>
+     <div class="modal-field">
+      <label for="ea-email">Email</label>
+      <input class="modal-input" id="ea-email" name="email" type="email" required autocomplete="email">
+     </div>
+     <div class="modal-field">
+      <label for="ea-company">Company Name</label>
+      <input class="modal-input" id="ea-company" name="company" type="text" required autocomplete="organization">
+     </div>
+     <p class="modal-success" id="early-access-success" aria-live="polite" role="status">Thanks! You're on the list.</p>
+     <div class="modal-actions">
+      <button class="modal-submit" type="submit">Submit</button>
+      <button class="modal-close-btn" type="button" id="early-access-close">Close</button>
+     </div>
+    </form>
+   </div>
+  </div>
   <footer><img src="https://ctovmhwxjuehichrydrl.supabase.co/storage/v1/object/public/Imagaes/Makoplay.png" alt="Makoplay" class="footer-logo-img" onerror="this.style.display='none'; this.alt='Logo failed to load';">
    <div class="footer-logo" id="footer-logo-text" style="display: none;">
     MAKOPLAY
@@ -767,7 +926,6 @@
       logo_text: "MAKOPLAY",
       hero_headline: "Marketing, now playable.",
       hero_subheadline: "Turn your best deals into the games everyone wants to win.",
-      primary_button: "Play Demo Game",
       secondary_button: "Join Early Access",
       about_intro: "Makoplay was born from a simple truth: people don't want to fill forms, they want to win.",
       about_text_1: "We turn marketing into a playable experience. With one click, our AI builds a mini-game around your offer — quick, branded, and fun. Players compete for a prize, submit their info to join, and the first winners claim the reward. When the winner cap is reached, the game ends automatically.",
@@ -867,11 +1025,6 @@
         num.style.borderColor = textColor;
       });
 
-      const primaryBtn = document.getElementById('primary-btn');
-      primaryBtn.style.background = primaryActionColor;
-      primaryBtn.style.color = secondaryActionColor;
-      primaryBtn.style.borderColor = textColor;
-
       const secondaryBtn = document.getElementById('secondary-btn');
       secondaryBtn.style.background = secondaryActionColor;
       secondaryBtn.style.color = primaryActionColor;
@@ -896,7 +1049,6 @@
       document.getElementById('logo-text').textContent = config.logo_text || defaultConfig.logo_text;
       document.getElementById('hero-headline').textContent = config.hero_headline || defaultConfig.hero_headline;
       document.getElementById('hero-subheadline').textContent = config.hero_subheadline || defaultConfig.hero_subheadline;
-      document.getElementById('primary-btn').textContent = config.primary_button || defaultConfig.primary_button;
       document.getElementById('secondary-btn').textContent = config.secondary_button || defaultConfig.secondary_button;
       document.getElementById('about-intro').textContent = config.about_intro || defaultConfig.about_intro;
       document.getElementById('about-text-1').textContent = config.about_text_1 || defaultConfig.about_text_1;
@@ -987,7 +1139,6 @@
         ["logo_text", config.logo_text || defaultConfig.logo_text],
         ["hero_headline", config.hero_headline || defaultConfig.hero_headline],
         ["hero_subheadline", config.hero_subheadline || defaultConfig.hero_subheadline],
-        ["primary_button", config.primary_button || defaultConfig.primary_button],
         ["secondary_button", config.secondary_button || defaultConfig.secondary_button],
         ["about_intro", config.about_intro || defaultConfig.about_intro],
         ["about_text_1", config.about_text_1 || defaultConfig.about_text_1],
@@ -1012,21 +1163,124 @@
       });
     }
 
-    document.getElementById('primary-btn').addEventListener('click', () => {
-      console.log('Start Game clicked');
+    const joinButton = document.getElementById('secondary-btn');
+    const modalOverlay = document.getElementById('early-access-modal');
+    const modalForm = document.getElementById('early-access-form');
+    const modalCloseButton = document.getElementById('early-access-close');
+    const modalSuccessMessage = document.getElementById('early-access-success');
+    let lastFocusedElement = null;
+
+    const getModalFocusableElements = () => {
+      return Array.from(modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+        .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    };
+
+    const handleModalKeydown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      const focusableElements = getModalFocusableElements();
+      if (focusableElements.length === 0) {
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey) {
+        if (document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      } else if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    function openModal() {
+      lastFocusedElement = document.activeElement;
+      modalOverlay.classList.add('is-visible');
+      modalOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      modalForm.reset();
+      modalSuccessMessage.classList.remove('is-visible');
+      document.addEventListener('keydown', handleModalKeydown);
+
+      const focusableElements = getModalFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('is-visible');
+      modalOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleModalKeydown);
+      modalForm.reset();
+      modalSuccessMessage.classList.remove('is-visible');
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    joinButton.addEventListener('click', () => {
+      console.log('Join Early Access clicked');
+      openModal();
     });
 
-    document.getElementById('secondary-btn').addEventListener('click', () => {
-      console.log('Join Early Access clicked');
+    modalCloseButton.addEventListener('click', () => {
+      closeModal();
+    });
+
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    modalForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!modalForm.reportValidity()) {
+        return;
+      }
+
+      const formData = new FormData(modalForm);
+      const submission = Object.fromEntries(formData.entries());
+      console.log('Early access form submission', submission);
+
+      modalForm.reset();
+      modalSuccessMessage.textContent = "Thanks! You're on the list.";
+      modalSuccessMessage.classList.add('is-visible');
+
+      const focusableElements = getModalFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    });
+
+    modalForm.addEventListener('input', () => {
+      if (modalSuccessMessage.classList.contains('is-visible')) {
+        modalSuccessMessage.classList.remove('is-visible');
+      }
     });
 
     // Smooth scroll to Join Early Access button when Join Waitlist is clicked
     document.querySelectorAll('a[href="#waitlist"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        document.getElementById('secondary-btn').scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
+        joinButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
         });
       });
     });

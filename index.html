@@ -572,6 +572,57 @@
       display: block;
     }
 
+    .makoplay-success-inner {
+      position: relative;
+      padding: 3rem 2.5rem;
+      border: 2px solid #000;
+      background-color: rgba(255, 255, 255, 0.92);
+      text-align: center;
+      max-width: 480px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .makoplay-success-inner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("/assets/makoplay-celebrate.gif"); /* TODO: use the real GIF path */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    .makoplay-success-title {
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .makoplay-success-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .makoplay-success-button {
+      padding: 0.75rem 2.5rem;
+      border: 2px solid #000;
+      background-color: #000;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .makoplay-success-button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
     @media (max-width: 600px) {
       .modal-card {
         padding: 1.5rem;
@@ -1206,30 +1257,43 @@
   </section>
   <div class="modal-overlay" id="early-access-modal" aria-hidden="true">
    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="early-access-title">
-    <h2 class="modal-title" id="early-access-title">Join Early Access</h2>
-    <form class="modal-form" id="early-access-form">
-     <div class="modal-field">
-      <label for="ea-first-name">First Name</label>
-      <input class="modal-input" id="ea-first-name" name="first_name" type="text" required autocomplete="given-name">
+    <div id="early-access-content">
+     <h2 class="modal-title" id="early-access-title">Join Early Access</h2>
+     <form class="modal-form" id="early-access-form">
+      <div class="modal-field">
+       <label for="ea-first-name">First Name</label>
+       <input class="modal-input" id="ea-first-name" name="first_name" type="text" required autocomplete="given-name">
+      </div>
+      <div class="modal-field">
+       <label for="ea-last-name">Last Name</label>
+       <input class="modal-input" id="ea-last-name" name="last_name" type="text" required autocomplete="family-name">
+      </div>
+      <div class="modal-field">
+       <label for="ea-email">Email</label>
+       <input class="modal-input" id="ea-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="modal-field">
+       <label for="ea-company">Company Name</label>
+       <input class="modal-input" id="ea-company" name="company" type="text" required autocomplete="organization">
+      </div>
+      <div class="modal-actions">
+       <button class="modal-submit" type="submit">Submit</button>
+       <button class="modal-close-btn" type="button" id="early-access-close">Close</button>
+      </div>
+     </form>
+    </div>
+    <div id="early-access-success" style="display: none;">
+     <div class="makoplay-success-inner">
+      <h2 class="makoplay-success-title">You’re in 🎮</h2>
+      <p class="makoplay-success-text">
+       Thanks for joining the Makoplay early access list.
+       We’ll email you when new demo games and features go live.
+      </p>
+      <button type="button" id="early-access-close-success" class="makoplay-success-button">
+       Close
+      </button>
      </div>
-     <div class="modal-field">
-      <label for="ea-last-name">Last Name</label>
-      <input class="modal-input" id="ea-last-name" name="last_name" type="text" required autocomplete="family-name">
-     </div>
-     <div class="modal-field">
-      <label for="ea-email">Email</label>
-      <input class="modal-input" id="ea-email" name="email" type="email" required autocomplete="email">
-     </div>
-     <div class="modal-field">
-      <label for="ea-company">Company Name</label>
-      <input class="modal-input" id="ea-company" name="company" type="text" required autocomplete="organization">
-     </div>
-     <p class="modal-success" id="early-access-success" aria-live="polite" role="status">Thanks! You're on the list.</p>
-     <div class="modal-actions">
-      <button class="modal-submit" type="submit">Submit</button>
-      <button class="modal-close-btn" type="button" id="early-access-close">Close</button>
-     </div>
-    </form>
+    </div>
    </div>
   </div>
   <footer><img src="https://ctovmhwxjuehichrydrl.supabase.co/storage/v1/object/public/Imagaes/Makoplay.png" alt="Makoplay" class="footer-logo-img" onerror="this.style.display='none'; this.alt='Logo failed to load';">
@@ -1485,8 +1549,24 @@
     const modalOverlay = document.getElementById('early-access-modal');
     const modalForm = document.getElementById('early-access-form');
     const modalCloseButton = document.getElementById('early-access-close');
-    const modalSuccessMessage = document.getElementById('early-access-success');
+    const earlyAccessContent = document.getElementById('early-access-content');
+    const earlyAccessSuccess = document.getElementById('early-access-success');
+    const earlyAccessCloseSuccess = document.getElementById('early-access-close-success');
     let lastFocusedElement = null;
+
+    const showFormState = () => {
+      earlyAccessContent.style.display = 'block';
+      earlyAccessSuccess.style.display = 'none';
+    };
+
+    const showSuccessState = () => {
+      earlyAccessContent.style.display = 'none';
+      earlyAccessSuccess.style.display = 'block';
+
+      if (earlyAccessCloseSuccess) {
+        earlyAccessCloseSuccess.focus();
+      }
+    };
 
     const getModalFocusableElements = () => {
       return Array.from(modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
@@ -1529,7 +1609,7 @@
       modalOverlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       modalForm.reset();
-      modalSuccessMessage.classList.remove('is-visible');
+      showFormState();
       document.addEventListener('keydown', handleModalKeydown);
 
       const focusableElements = getModalFocusableElements();
@@ -1544,7 +1624,7 @@
       document.body.style.overflow = '';
       document.removeEventListener('keydown', handleModalKeydown);
       modalForm.reset();
-      modalSuccessMessage.classList.remove('is-visible');
+      showFormState();
       if (lastFocusedElement) {
         lastFocusedElement.focus();
       }
@@ -1559,6 +1639,12 @@
       closeModal();
     });
 
+    if (earlyAccessCloseSuccess) {
+      earlyAccessCloseSuccess.addEventListener('click', () => {
+        closeModal();
+      });
+    }
+
     modalOverlay.addEventListener('click', (event) => {
       if (event.target === modalOverlay) {
         closeModal();
@@ -1566,8 +1652,8 @@
     });
 
     modalForm.addEventListener('input', () => {
-      if (modalSuccessMessage.classList.contains('is-visible')) {
-        modalSuccessMessage.classList.remove('is-visible');
+      if (earlyAccessSuccess.style.display !== 'none') {
+        showFormState();
       }
     });
 
@@ -1620,7 +1706,7 @@ document.getElementById("early-access-form").addEventListener("submit", async (e
     }
 
     form.reset();
-    alert("Thanks for joining the Makoplay early access list!");
+    showSuccessState();
   } catch (err) {
     console.error(err);
     alert("Network error. Please try again.");
